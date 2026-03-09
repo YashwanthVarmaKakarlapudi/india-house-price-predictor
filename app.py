@@ -148,14 +148,24 @@ body, p, label, .stWidgetLabel {
 /* Slider Customization */
 [data-testid="stSlider"] [role="slider"] {
     background-color: var(--accent) !important;
-    border: 3px solid #ffffff !important;
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5) !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.4) !important;
 }
 [data-testid="stSlider"] div[data-baseweb="slider"] > div > div {
     background: var(--accent) !important;
 }
 [data-testid="stSlider"] div[data-baseweb="slider"] > div {
-    background: #2d313d !important;
+    background: #232631 !important;
+}
+/* Hide the messy tick bars at the bottom */
+[data-testid="stTickBar"] {
+    display: none !important;
+}
+/* Style the value label above/beside the thumb */
+[data-testid="stSlider"] div[data-baseweb="slider"] + div {
+    color: var(--accent) !important;
+    font-weight: 600 !important;
+    font-size: 0.9rem !important;
 }
 
 /* Radio Chip Cards */
@@ -436,64 +446,64 @@ if predict_btn:
 
     # Hero Result
     st.markdown(f"""
-    <div class="result-hero">
-        <div class="val-label">Market Valuation</div>
-        <div class="val-main">
-            <span class="val-currency">₹</span>{price_lakhs:,.2f}<span class="val-unit">Lakhs</span>
-        </div>
-        <div class="val-sub">Equivalent to approximately <strong>₹ {price_crores:.2f} Crores</strong></div>
+<div class="result-hero">
+    <div class="val-label">Market Valuation</div>
+    <div class="val-main">
+        <span class="val-currency">₹</span>{price_lakhs:,.2f}<span class="val-unit">Lakhs</span>
     </div>
-        
-        <div class="section-header"><span>Property Specification Recap</span></div>
-        
-        <div class="summary-container">
-            <div class="info-card">
-                <span class="info-icon">🏢</span>
-                <span class="info-val">{city}</span>
-                <span class="info-key">Location</span>
-            </div>
-            <div class="info-card">
-                <span class="info-icon">🛌</span>
-                <span class="info-val">{bedrooms} BHK</span>
-                <span class="info-key">Configuration</span>
-            </div>
-            <div class="info-card">
-                <span class="info-icon">📐</span>
-                <span class="info-val">{sqft_living:,}</span>
-                <span class="info-key">Area (Sq.Ft)</span>
-            </div>
-            <div class="info-card">
-                <span class="info-icon">🛁</span>
-                <span class="info-val">{bathrooms}</span>
-                <span class="info-key">Bathrooms</span>
-            </div>
-            <div class="info-card">
-                <span class="info-icon">🏗</span>
-                <span class="info-val">Level {floors}</span>
-                <span class="info-key">Floor</span>
-            </div>
-            <div class="info-card">
-                <span class="info-icon">⏳</span>
-                <span class="info-val">{age_years} Yrs</span>
-                <span class="info-key">Vintage</span>
-            </div>
-            <div class="info-card">
-                <span class="info-icon">🛋</span>
-                <span class="info-val">{furnishing_label}</span>
-                <span class="info-key">Furnishing</span>
-            </div>
-            <div class="info-card">
-                <span class="info-icon">📍</span>
-                <span class="info-val">{locality_label}</span>
-                <span class="info-key">Locality Category</span>
-            </div>
-            <div class="info-card">
-                <span class="info-icon">🚗</span>
-                <span class="info-val">{parking} Bay{'s' if parking != 1 else ''}</span>
-                <span class="info-key">Parking</span>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+    <div class="val-sub">Equivalent to approximately <strong>₹ {price_crores:.2f} Crores</strong></div>
+</div>
+
+<div class="section-header"><span>Property Specification Recap</span></div>
+
+<div class="summary-container">
+    <div class="info-card">
+        <span class="info-icon">🏢</span>
+        <span class="info-val">{city}</span>
+        <span class="info-key">Location</span>
+    </div>
+    <div class="info-card">
+        <span class="info-icon">🛌</span>
+        <span class="info-val">{bedrooms} BHK</span>
+        <span class="info-key">Configuration</span>
+    </div>
+    <div class="info-card">
+        <span class="info-icon">📐</span>
+        <span class="info-val">{sqft_living:,}</span>
+        <span class="info-key">Area (Sq.Ft)</span>
+    </div>
+    <div class="info-card">
+        <span class="info-icon">🛁</span>
+        <span class="info-val">{bathrooms}</span>
+        <span class="info-key">Bathrooms</span>
+    </div>
+    <div class="info-card">
+        <span class="info-icon">🏗</span>
+        <span class="info-val">Level {floors}</span>
+        <span class="info-key">Floor</span>
+    </div>
+    <div class="info-card">
+        <span class="info-icon">⏳</span>
+        <span class="info-val">{age_years} Yrs</span>
+        <span class="info-key">Vintage</span>
+    </div>
+    <div class="info-card">
+        <span class="info-icon">🛋</span>
+        <span class="info-val">{furnishing_label}</span>
+        <span class="info-key">Furnishing</span>
+    </div>
+    <div class="info-card">
+        <span class="info-icon">📍</span>
+        <span class="info-val">{locality_label}</span>
+        <span class="info-key">Locality Category</span>
+    </div>
+    <div class="info-card">
+        <span class="info-icon">🚗</span>
+        <span class="info-val">{parking} Bay{'s' if parking != 1 else ''}</span>
+        <span class="info-key">Parking</span>
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
 else:
     st.markdown("""
