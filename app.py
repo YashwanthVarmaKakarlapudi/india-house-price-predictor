@@ -145,27 +145,67 @@ body, p, label, .stWidgetLabel {
     padding: 0.6rem 1rem !important;
 }
 
-/* Slider Customization */
-[data-testid="stSlider"] [role="slider"] {
-    background-color: var(--accent) !important;
-    border: 2px solid #ffffff !important;
-    box-shadow: 0 0 12px rgba(212, 175, 55, 0.4) !important;
+/* Luxury Slider Redesign */
+[data-testid="stSlider"] {
+    margin-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
 }
-[data-testid="stSlider"] div[data-baseweb="slider"] > div > div {
-    background: var(--accent) !important;
+
+[data-testid="stSlider"] div[data-baseweb="slider"] {
+    height: 40px !important;
 }
+
+/* Track Background */
 [data-testid="stSlider"] div[data-baseweb="slider"] > div {
-    background: #232631 !important;
+    background: #1f222b !important;
+    height: 4px !important;
+    border-radius: 10px !important;
+    border: 1px solid rgba(255,255,255,0.05) !important;
 }
-/* Hide the messy tick bars at the bottom */
-[data-testid="stTickBar"] {
-    display: none !important;
+
+/* Active Track (Fill) */
+[data-testid="stSlider"] div[data-baseweb="slider"] > div > div {
+    background: linear-gradient(90deg, var(--accent-dim), var(--accent)) !important;
+    height: 4px !important;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3) !important;
 }
-/* Style the value label above/beside the thumb */
-[data-testid="stSlider"] div[data-baseweb="slider"] + div {
+
+/* Thumb/Handle */
+[data-testid="stSlider"] [role="slider"] {
+    width: 24px !important;
+    height: 24px !important;
+    background: #ffffff !important;
+    border: 4px solid var(--accent) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5), 0 0 0 4px rgba(212, 175, 55, 0.2) !important;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    outline: none !important;
+}
+
+[data-testid="stSlider"] [role="slider"]:hover {
+    transform: scale(1.15) !important;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.6), 0 0 0 6px rgba(212, 175, 55, 0.3) !important;
+}
+
+/* Hide Messy Elements (Ticks & Min/Max) */
+[data-testid="stTickBar"] { display: none !important; }
+
+/* Current Value Display (The floating number) */
+[data-testid="stSlider"] [data-testid="stWidgetLabel"] + div + div {
     color: var(--accent) !important;
-    font-weight: 600 !important;
-    font-size: 0.9rem !important;
+    font-family: 'Cinzel', serif !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    letter-spacing: 0.1em !important;
+    background: rgba(212, 175, 55, 0.1) !important;
+    padding: 2px 10px !important;
+    border-radius: 6px !important;
+    border: 1px solid rgba(212, 175, 55, 0.2) !important;
+}
+
+/* Hide the static min/max values at the ends */
+[data-testid="stSlider"] div[data-baseweb="slider"] + div > div {
+    color: transparent !important;
+    user-select: none !important;
 }
 
 /* Radio Chip Cards */
