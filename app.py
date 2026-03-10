@@ -145,27 +145,60 @@ body, p, label, .stWidgetLabel {
     padding: 0.6rem 1rem !important;
 }
 
-/* Slider Customization */
+/* ── Slider Customization ── */
+
+/* Track container — single clean line, no ghost elements */
+[data-testid="stSlider"] div[data-baseweb="slider"] {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+}
+
+/* Full track (background) */
+[data-testid="stSlider"] div[data-baseweb="slider"] > div:first-child {
+    background: #2d313d !important;
+    height: 4px !important;
+    border-radius: 99px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    position: relative !important;
+}
+
+/* Filled portion of track */
+[data-testid="stSlider"] div[data-baseweb="slider"] > div:first-child > div:first-child {
+    background: linear-gradient(90deg, #d4af37, #fde68a) !important;
+    height: 4px !important;
+    border-radius: 99px !important;
+}
+
+/* Thumb — perfectly centered on track */
 [data-testid="stSlider"] [role="slider"] {
     background-color: var(--accent) !important;
-    border: 2px solid #ffffff !important;
-    box-shadow: 0 0 12px rgba(212, 175, 55, 0.4) !important;
+    border: 2.5px solid #ffffff !important;
+    box-shadow: 0 0 10px rgba(212,175,55,0.5) !important;
+    width: 18px !important;
+    height: 18px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    margin-top: 0 !important;
 }
-[data-testid="stSlider"] div[data-baseweb="slider"] > div > div {
-    background: var(--accent) !important;
-}
-[data-testid="stSlider"] div[data-baseweb="slider"] > div {
-    background: #232631 !important;
-}
-/* Hide the messy tick bars at the bottom */
-[data-testid="stTickBar"] {
+
+/* Hide ALL tick marks and min/max end labels */
+[data-testid="stTickBar"],
+[data-testid="stSlider"] [data-testid="stTickBarMin"],
+[data-testid="stSlider"] [data-testid="stTickBarMax"],
+[data-testid="stSlider"] div[data-baseweb="slider"] ~ div {
     display: none !important;
 }
-/* Style the value label above/beside the thumb */
-[data-testid="stSlider"] div[data-baseweb="slider"] + div {
-    color: var(--accent) !important;
-    font-weight: 600 !important;
-    font-size: 0.9rem !important;
+
+/* Hide the floating red value bubble on the thumb */
+[data-testid="stSlider"] div[data-baseweb="tooltip"],
+[data-testid="stSlider"] [data-baseweb="tooltip"] {
+    display: none !important;
+}
+/* Also hide value shown inline near thumb */
+[data-testid="stSlider"] div[role="slider"] + div,
+[data-testid="stSlider"] div[role="slider"] ~ div {
+    display: none !important;
 }
 
 /* Radio Chip Cards */
@@ -395,7 +428,10 @@ with st.container():
     with cc1:
         bedrooms = st.slider("Number of Bedrooms", 1, 5, 3)
     with cc2:
-        bathrooms = st.slider("Number of Bathrooms", 1.0, 5.0, 2.0, step=0.5)
+        bath_raw  = st.slider("Number of Bathrooms", 1, 9, 3, step=1)
+        bath_map  = {1:1.0, 2:1.5, 3:2.0, 4:2.5, 5:3.0, 6:3.5, 7:4.0, 8:4.5, 9:5.0}
+        bathrooms = bath_map[bath_raw]
+        st.caption(f"Selected: {int(bathrooms) if bathrooms == int(bathrooms) else bathrooms} bathrooms")
     
     sqft_living = st.number_input("Living Area (sq ft)", min_value=400, max_value=5000, value=1200, step=50)
 
