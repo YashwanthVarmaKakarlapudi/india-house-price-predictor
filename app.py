@@ -145,67 +145,73 @@ body, p, label, .stWidgetLabel {
     padding: 0.6rem 1rem !important;
 }
 
-/* Nuclear Slider Cleanup & Precision Centering */
+/* --- PREMIUM SLIDER OVERHAUL --- */
 [data-testid="stSlider"] {
     margin-bottom: 2.5rem !important;
     padding: 0 !important;
 }
 
-/* 1. FORCE HIDE ALL LABELS (Min, Max, Value, Ticks) */
-/* Targets the div immediately following the track and any nested value spans */
-[data-testid="stSlider"] [data-baseweb="slider"] + div, 
-[data-testid="stSlider"] [data-baseweb="slider"] + div > div,
-[data-testid="stSlider"] [data-baseweb="slider"] div[data-baseweb="slider"] + div,
-[data-testid="stTickBar"],
-[data-testid="stSlider"] span[data-testid="stThumbValue"],
-[data-testid="stSlider"] div[role="presentation"] > div:nth-child(2),
-[data-testid="stSlider"] [data-testid="stThumbValue"] {
-    display: none !important;
-    visibility: hidden !important;
-    height: 0 !important;
-    opacity: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-/* 2. THE TRACK CONTAINER (Remove the grey bubbles/shelves) */
+/* A. THE HIT AREA (Transparent Container) */
 [data-testid="stSlider"] div[data-baseweb="slider"] {
     background: transparent !important;
-    height: 20px !important; /* Consistent hit area */
-    margin-top: 10px !important;
-}
-
-/* 3. THE ACTUAL TRACK LINE */
-[data-testid="stSlider"] div[data-baseweb="slider"] > div {
-    background: #2d313d !important; /* Gunmetal track */
-    height: 4px !important;
-    border-radius: 10px !important;
+    border: none !important;
+    height: 48px !important; /* Larger interactive zone for smooth dragging */
     padding: 0 !important;
+    margin-top: 10px !important;
+    display: flex !important;
+    align-items: center !important;
 }
 
-/* 4. THE ACTIVE FILL (Gold) */
+/* B. THE TRACK (Consistency for all 4) */
+[data-testid="stSlider"] div[data-baseweb="slider"] > div {
+    background: rgba(45, 49, 61, 0.5) !important; /* Translucent gunmetal */
+    height: 4px !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 10px !important;
+}
+
+/* C. THE ACTIVE FILL (Gold) */
 [data-testid="stSlider"] div[data-baseweb="slider"] > div > div {
     background: var(--accent) !important;
     height: 4px !important;
 }
 
-/* 5. THE THUMB - PERFECTLY CENTERED */
-/* 4px track, 20px thumb. 
-   To center: Thumb needs to go (20-4)/2 = 8px UP from the top of the track.
-   Base-web positions thumb relative to track top. 
-*/
+/* D. THE THUMB (Perfectly Centered & Identical) */
 [data-testid="stSlider"] [role="slider"] {
     background-color: #ffffff !important;
     border: 3px solid var(--accent) !important;
-    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4) !important;
-    width: 20px !important;
-    height: 20px !important;
-    top: -8px !important; 
-    transition: transform 0.1s ease !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4), 0 0 0 6px rgba(212, 175, 55, 0.1) !important;
+    width: 22px !important;
+    height: 22px !important;
+    /* Calculated Centering: (22-4)/2 = 9px offset */
+    top: -9px !important; 
+    transition: transform 0.1s ease-out, box-shadow 0.2s ease !important;
+    cursor: grab !important;
+}
+[data-testid="stSlider"] [role="slider"]:active {
+    cursor: grabbing !important;
+    transform: scale(1.1) !important;
 }
 
-[data-testid="stSlider"] [role="slider"]:hover {
-    transform: scale(1.1) !important;
+/* E. ABSOLUTE LABEL SUPPRESSION (Nuclear Option) */
+/* This hides everything except the track and thumb */
+[data-testid="stSlider"] [data-baseweb="slider"] + div, 
+[data-testid="stSlider"] [data-baseweb="slider"] + div > div,
+[data-testid="stSlider"] [role="slider"] div,
+[data-testid="stTickBar"],
+[data-testid="stSlider"] [data-testid="stThumbValue"],
+[data-testid="stSlider"] [aria-valuetext] {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* F. REMOVE GHOST LINE / BORDER ARTIFACTS */
+[data-testid="stSlider"] div[role="presentation"] {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 /* Fix for any potential lingering red text labels */
