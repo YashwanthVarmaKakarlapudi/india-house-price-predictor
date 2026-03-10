@@ -145,9 +145,24 @@ body, p, label, .stWidgetLabel {
     padding: 0.6rem 1rem !important;
 }
 
-/* Stabilized Premium Slider */
+/* Stabilized & Clean Slider */
 [data-testid="stSlider"] {
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 2rem !important;
+    padding-top: 1rem !important;
+}
+
+/* Remove all labels, ranges, and red values */
+[data-testid="stSlider"] [data-baseweb="slider"] + div, /* Min/Max/Value div */
+[data-testid="stSlider"] [data-baseweb="slider"] + div > div, /* Children of value div */
+[data-testid="stSlider"] [data-baseweb="slider"] div[data-baseweb="slider"] + div,
+[data-testid="stTickBar"],
+[data-testid="stSlider"] span[data-testid="stThumbValue"] {
+    display: none !important;
+}
+
+/* Ensure the main container is transparent to avoid "ghost bubbles" */
+[data-testid="stSlider"] div[data-baseweb="slider"] {
+    background: transparent !important;
 }
 
 /* The Track */
@@ -157,38 +172,28 @@ body, p, label, .stWidgetLabel {
     border-radius: 99px !important;
 }
 
-/* The Fill */
+/* The Fill Layer */
 [data-testid="stSlider"] div[data-baseweb="slider"] > div > div {
     background: var(--accent) !important;
     height: 6px !important;
 }
 
-/* The Thumb */
+/* The Thumb - Precisely Centered */
 [data-testid="stSlider"] [role="slider"] {
     background-color: #ffffff !important;
     border: 3px solid var(--accent) !important;
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.4) !important;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4) !important;
     width: 22px !important;
     height: 22px !important;
-    top: -8px !important; /* Center on 6px track */
+    /* To center a 22px thumb on a 6px track:
+       track_center (3) - thumb_radius (11) = -8px top offset
+    */
+    top: -8px !important;
 }
 
-/* Hide Messy Ticks */
-[data-testid="stTickBar"] { display: none !important; }
-
-/* Refined Value Display - Safer Selector */
-[data-testid="stSlider"] [data-baseweb="slider"] + div {
-    color: var(--accent) !important;
-    font-family: 'Cinzel', serif !important;
-    font-weight: 700 !important;
-    font-size: 0.95rem !important;
-    margin-top: 10px !important;
-}
-
-/* Hide low/high range labels for clean look */
-[data-testid="stSlider"] div[data-baseweb="slider"] + div > div {
-    font-size: 0 !important;
-    visibility: hidden !important;
+/* Fix for any potential lingering red text labels */
+[data-testid="stSlider"] div {
+    color: inherit; /* Prevent forced red from defaults */
 }
 
 /* Radio Chip Cards */
