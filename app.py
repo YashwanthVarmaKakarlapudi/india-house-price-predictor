@@ -145,50 +145,67 @@ body, p, label, .stWidgetLabel {
     padding: 0.6rem 1rem !important;
 }
 
-/* Stabilized & Clean Slider */
+/* Nuclear Slider Cleanup & Precision Centering */
 [data-testid="stSlider"] {
-    margin-bottom: 2rem !important;
-    padding-top: 1rem !important;
+    margin-bottom: 2.5rem !important;
+    padding: 0 !important;
 }
 
-/* Remove all labels, ranges, and red values */
-[data-testid="stSlider"] [data-baseweb="slider"] + div, /* Min/Max/Value div */
-[data-testid="stSlider"] [data-baseweb="slider"] + div > div, /* Children of value div */
+/* 1. FORCE HIDE ALL LABELS (Min, Max, Value, Ticks) */
+/* Targets the div immediately following the track and any nested value spans */
+[data-testid="stSlider"] [data-baseweb="slider"] + div, 
+[data-testid="stSlider"] [data-baseweb="slider"] + div > div,
 [data-testid="stSlider"] [data-baseweb="slider"] div[data-baseweb="slider"] + div,
 [data-testid="stTickBar"],
-[data-testid="stSlider"] span[data-testid="stThumbValue"] {
+[data-testid="stSlider"] span[data-testid="stThumbValue"],
+[data-testid="stSlider"] div[role="presentation"] > div:nth-child(2),
+[data-testid="stSlider"] [data-testid="stThumbValue"] {
     display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    opacity: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
-/* Ensure the main container is transparent to avoid "ghost bubbles" */
+/* 2. THE TRACK CONTAINER (Remove the grey bubbles/shelves) */
 [data-testid="stSlider"] div[data-baseweb="slider"] {
     background: transparent !important;
+    height: 20px !important; /* Consistent hit area */
+    margin-top: 10px !important;
 }
 
-/* The Track */
+/* 3. THE ACTUAL TRACK LINE */
 [data-testid="stSlider"] div[data-baseweb="slider"] > div {
-    background: #1f222b !important;
-    height: 6px !important;
-    border-radius: 99px !important;
+    background: #2d313d !important; /* Gunmetal track */
+    height: 4px !important;
+    border-radius: 10px !important;
+    padding: 0 !important;
 }
 
-/* The Fill Layer */
+/* 4. THE ACTIVE FILL (Gold) */
 [data-testid="stSlider"] div[data-baseweb="slider"] > div > div {
     background: var(--accent) !important;
-    height: 6px !important;
+    height: 4px !important;
 }
 
-/* The Thumb - Precisely Centered */
+/* 5. THE THUMB - PERFECTLY CENTERED */
+/* 4px track, 20px thumb. 
+   To center: Thumb needs to go (20-4)/2 = 8px UP from the top of the track.
+   Base-web positions thumb relative to track top. 
+*/
 [data-testid="stSlider"] [role="slider"] {
     background-color: #ffffff !important;
     border: 3px solid var(--accent) !important;
     box-shadow: 0 0 15px rgba(212, 175, 55, 0.4) !important;
-    width: 22px !important;
-    height: 22px !important;
-    /* To center a 22px thumb on a 6px track:
-       track_center (3) - thumb_radius (11) = -8px top offset
-    */
-    top: -8px !important;
+    width: 20px !important;
+    height: 20px !important;
+    top: -8px !important; 
+    transition: transform 0.1s ease !important;
+}
+
+[data-testid="stSlider"] [role="slider"]:hover {
+    transform: scale(1.1) !important;
 }
 
 /* Fix for any potential lingering red text labels */
