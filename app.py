@@ -145,78 +145,65 @@ body, p, label, .stWidgetLabel {
     padding: 0.6rem 1rem !important;
 }
 
-/* --- PREMIUM SLIDER OVERHAUL --- */
+/* --- LUXURY SLIDER: PERFECTION RESET --- */
 [data-testid="stSlider"] {
     margin-bottom: 2.5rem !important;
     padding: 0 !important;
 }
 
-/* A. THE HIT AREA (Transparent Container) */
+/* 1. Hide the labels box (Min/Max/Current Value) and Ticks */
+[data-testid="stSlider"] [data-baseweb="slider"] + div, 
+[data-testid="stTickBar"] {
+    display: none !important;
+}
+
+/* 2. Style the Slider Container (Transparent background) */
 [data-testid="stSlider"] div[data-baseweb="slider"] {
     background: transparent !important;
-    border: none !important;
-    height: 48px !important; /* Larger interactive zone for smooth dragging */
-    padding: 0 !important;
-    margin-top: 10px !important;
+    height: 30px !important; /* Fixed height for consistent vertical centering */
     display: flex !important;
     align-items: center !important;
 }
 
-/* B. THE TRACK (Consistency for all 4) */
+/* 3. The Main Track (The full gray line) */
 [data-testid="stSlider"] div[data-baseweb="slider"] > div {
-    background: rgba(45, 49, 61, 0.5) !important; /* Translucent gunmetal */
+    background: #2d313d !important;
     height: 4px !important;
-    padding: 0 !important;
     border: none !important;
-    border-radius: 10px !important;
+    padding: 0 !important;
 }
 
-/* C. THE ACTIVE FILL (Gold) */
+/* 4. The Active Track (The gold fill) */
 [data-testid="stSlider"] div[data-baseweb="slider"] > div > div {
     background: var(--accent) !important;
     height: 4px !important;
 }
 
-/* D. THE THUMB (Perfectly Centered & Identical) */
+/* 5. The Thumb (The White/Gold Circle) */
 [data-testid="stSlider"] [role="slider"] {
     background-color: #ffffff !important;
     border: 3px solid var(--accent) !important;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4), 0 0 0 6px rgba(212, 175, 55, 0.1) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5) !important;
     width: 22px !important;
     height: 22px !important;
-    /* Calculated Centering: (22-4)/2 = 9px offset */
-    top: -9px !important; 
-    transition: transform 0.1s ease-out, box-shadow 0.2s ease !important;
+    /* Explicit centering: 
+       Container is 30px high -> Center is 15px.
+       Thumb is 22px high -> Starts at (30-22)/2 = 4px.
+       Since BaseWeb positions thumb relative to track (4px high),
+       offset is roughly -9px.
+    */
+    top: -9px !important;
+    transition: transform 0.1s ease !important;
+    outline: none !important;
+}
+
+[data-testid="stSlider"] [role="slider"]:hover {
+    transform: scale(1.1) !important;
     cursor: grab !important;
 }
+
 [data-testid="stSlider"] [role="slider"]:active {
     cursor: grabbing !important;
-    transform: scale(1.1) !important;
-}
-
-/* E. ABSOLUTE LABEL SUPPRESSION (Nuclear Option) */
-/* This hides everything except the track and thumb */
-[data-testid="stSlider"] [data-baseweb="slider"] + div, 
-[data-testid="stSlider"] [data-baseweb="slider"] + div > div,
-[data-testid="stSlider"] [role="slider"] div,
-[data-testid="stTickBar"],
-[data-testid="stSlider"] [data-testid="stThumbValue"],
-[data-testid="stSlider"] [aria-valuetext] {
-    display: none !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-}
-
-/* F. REMOVE GHOST LINE / BORDER ARTIFACTS */
-[data-testid="stSlider"] div[role="presentation"] {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-/* Fix for any potential lingering red text labels */
-[data-testid="stSlider"] div {
-    color: inherit; /* Prevent forced red from defaults */
 }
 
 /* Radio Chip Cards */
